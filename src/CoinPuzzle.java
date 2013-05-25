@@ -1,11 +1,11 @@
-import java.awt.Frame;
+import javax.swing.JFrame;
 
 
 public class CoinPuzzle
 {	
 	public static void main(String []args)
 	{
-		Frame fraMain = new FrameCoinPuzzle();
+		JFrame fraMain = new FrameCoinPuzzle();
 		
 		fraMain.setTitle("Coin-sliding Puzzle");
 		fraMain.setVisible(true);
