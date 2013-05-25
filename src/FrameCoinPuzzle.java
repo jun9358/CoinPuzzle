@@ -27,6 +27,7 @@ public class FrameCoinPuzzle extends JFrame
 		setVisible(false);
 		
 		// Set properties
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize
 		(
 			FRAME_INNER_WIDTH + getInsets().left + getInsets().right,
