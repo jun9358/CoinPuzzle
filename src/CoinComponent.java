@@ -102,6 +102,16 @@ public class CoinComponent extends JComponent implements MouseMotionListener, Mo
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{
-		
+		if (PanelBoard.class.equals(this.getParent().getClass()) &&	// Proper class AND
+			this.getParent() instanceof CoinEventListener)			// Proper interface
+		{
+			CoinEvent coinEvent = new CoinEvent(this);
+			
+			coinEvent.oldX = coordPoint.x * COIN_WIDTH;
+			coinEvent.oldY = coordPoint.y * COIN_HEIGHT;
+			coinEvent.newX = e.getXOnScreen() - this.getRootPane().getX();
+			coinEvent.newY = e.getYOnScreen() - this.getRootPane().getY();
+			((PanelBoard)this.getParent()).fireCoinEvent(coinEvent);
+		}
 	}
 }

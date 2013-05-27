@@ -46,8 +46,6 @@ public class PanelBoard extends JPanel implements CoinEventListener
 		}
 		
 		addCoinEventListener(this);
-		
-		fireCoinEvent(new CoinEvent(this));
 	}
 	
 	public void addCoinEventListener(CoinEventListener listener)
@@ -77,7 +75,22 @@ public class PanelBoard extends JPanel implements CoinEventListener
 	@Override
 	public void coinPut(CoinEvent e)
 	{
-		System.out.println("coinPut listener!!!");
+		// If source was not extended by CoinComponent, do not work.
+		if (!CoinComponent.class.equals(e.getSource().getClass()))
+		{
+			return ;
+		}
+		
+		// If new coordination is not proper position, back old position.
+		if (e.newX < 0 || PANEL_WIDTH < e.newX ||
+			e.newY < 0 || PANEL_HEIGHT < e.newY)
+		{
+			((CoinComponent)e.getSource()).putCoinAt((int)(e.oldX / 30), (int)(e.oldY / 30));
+		}
+		else
+		{
+			((CoinComponent)e.getSource()).putCoinAt(e.newX / 30, e.newY / 30);
+		}
 	}
 	
 	@Override
