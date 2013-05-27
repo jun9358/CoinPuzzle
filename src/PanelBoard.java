@@ -37,7 +37,7 @@ public class PanelBoard extends JPanel
 				if (INIT_BOARD[i][j] != -1)
 				{
 					coins[INIT_BOARD[i][j]] = new CoinComponent(INIT_BOARD[i][j]);
-					coins[INIT_BOARD[i][j]].setBounds(j*30, i*30, 30, 30);
+					coins[INIT_BOARD[i][j]].putCoinAt(j, i);
 					add(coins[INIT_BOARD[i][j]]);
 				}
 			}

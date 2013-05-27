@@ -16,11 +16,14 @@ public class CoinComponent extends JComponent implements MouseMotionListener, Mo
 	private int coinNumber;
 	private static final int COIN_WIDTH = 30;
 	private static final int COIN_HEIGHT = 30;
+	private static Point coordPoint;
 	private static Point clkPoint;
 	
 	CoinComponent(int _coinNumber)
 	{
 		coinNumber = _coinNumber;
+		coordPoint = new Point(0, 0);
+		this.setSize(COIN_WIDTH, COIN_HEIGHT);
 		
 		// Add mouse listener of coin
 		this.addMouseMotionListener(this);
@@ -30,6 +33,12 @@ public class CoinComponent extends JComponent implements MouseMotionListener, Mo
 	public void setClickedPoint(Point _clkPoint)
 	{
 		clkPoint = _clkPoint;
+	}
+	
+	public void putCoinAt(int x, int y)
+	{
+		this.setLocation(x * COIN_WIDTH, y * COIN_HEIGHT);
+		coordPoint.setLocation(x, y);
 	}
 	
 	public void paintComponent(Graphics g)
