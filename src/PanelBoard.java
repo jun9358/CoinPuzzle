@@ -1,9 +1,10 @@
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
+import javax.swing.event.EventListenerList;
 
 
-public class PanelBoard extends JPanel
+public class PanelBoard extends JPanel implements CoinEventListener
 {
 	private static final int PANEL_WIDTH = 300;
 	private static final int PANEL_HEIGHT = 300;
@@ -22,7 +23,8 @@ public class PanelBoard extends JPanel
 		{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 		{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
 	};
-	
+
+	protected EventListenerList listenerList = new EventListenerList();
 	private int board[][] = new int[BOARD_SIZE][BOARD_SIZE];
 	private CoinComponent[] coins = new CoinComponent[NUM_COIN];
 	
@@ -42,6 +44,40 @@ public class PanelBoard extends JPanel
 				}
 			}
 		}
+		
+		addCoinEventListener(this);
+		
+		fireCoinEvent(new CoinEvent(this));
+	}
+	
+	public void addCoinEventListener(CoinEventListener listener)
+	{
+		listenerList.add(CoinEventListener.class, listener);
+	}
+	
+	public void removeCoinEventListener(CoinEventListener listener)
+	{
+		listenerList.remove(CoinEventListener.class, listener);
+	}
+	
+	public void fireCoinEvent(CoinEvent event)
+	{
+		Object[] listeners = listenerList.getListenerList();
+		
+		// Decrease because we added two class that CoinEventListner and CoinEvent for listeners
+		for (int i=listeners.length-2 ; i>=0 ; i-=2)
+		{
+			if (listeners[i] == CoinEventListener.class)
+			{
+				((CoinEventListener)listeners[i+1]).coinPut(event);
+			}
+		}
+	}
+	
+	@Override
+	public void coinPut(CoinEvent e)
+	{
+		System.out.println("coinPut listener!!!");
 	}
 	
 	@Override
