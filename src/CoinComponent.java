@@ -14,8 +14,8 @@ import javax.swing.JComponent;
 public class CoinComponent extends JComponent implements MouseMotionListener, MouseListener
 {
 	private int coinNumber;
-	private static final int COIN_WIDTH = 30;
-	private static final int COIN_HEIGHT = 30;
+	public static final int COIN_WIDTH = 30;
+	public static final int COIN_HEIGHT = 30;
 	private static Point coordPoint;
 	private static Point clkPoint;
 	
