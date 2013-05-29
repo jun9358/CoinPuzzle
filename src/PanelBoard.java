@@ -43,7 +43,16 @@ public class PanelBoard extends JPanel implements CoinEventListener
 		setLayout(null);
 		maxMoving = 4;
 
+		initBoard();
+		
+		addCoinEventListener(this);
+	}
+	
+	public void initBoard()
+	{
 		cntMoving = 0;
+		
+		this.removeAll();
 		for (int i=0 ; i<BOARD_SIZE ; i++)
 		{
 			for (int j=0 ; j<BOARD_SIZE ; j++)
@@ -55,10 +64,11 @@ public class PanelBoard extends JPanel implements CoinEventListener
 					add(coins[INIT_BOARD[i][j]]);
 				}
 			}
+			
+			System.arraycopy(INIT_BOARD[i], 0, board[i], 0, INIT_BOARD[i].length);
 		}
-		board = INIT_BOARD.clone();
 		
-		addCoinEventListener(this);
+		repaint();
 	}
 	
 	public boolean isSolution()
@@ -171,15 +181,17 @@ public class PanelBoard extends JPanel implements CoinEventListener
 					"Failed",
 					JOptionPane.WARNING_MESSAGE);
 			}
+			initBoard();
 		}
 		
-		if (isSolution())
+		if (cntMoving != 0 && isSolution())
 		{
 			JOptionPane.showMessageDialog(this,
 				"You are genius!!!!\n" + 
 				"You solve this quiz before max moving count(" + cntMoving + ").",
 				"GENIUS!!!",
 				JOptionPane.INFORMATION_MESSAGE);
+			initBoard();
 		}
 	}
 	
