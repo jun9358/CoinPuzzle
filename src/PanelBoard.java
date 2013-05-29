@@ -104,6 +104,10 @@ public class PanelBoard extends JPanel implements CoinEventListener
 			coordPoint.x = (int)(e.newX / CoinComponent.COIN_WIDTH);
 			coordPoint.y = (int)(e.newY / CoinComponent.COIN_HEIGHT);
 			((CoinComponent)e.getSource()).putCoinAt(coordPoint.x, coordPoint.y);
+			
+			board[coordPoint.y][coordPoint.x]
+				= board[e.oldY / CoinComponent.COIN_HEIGHT][e.oldX / CoinComponent.COIN_WIDTH];
+			board[e.oldY / CoinComponent.COIN_HEIGHT][e.oldX / CoinComponent.COIN_WIDTH] = -1;
 		}
 	}
 	
