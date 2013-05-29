@@ -16,7 +16,7 @@ public class CoinComponent extends JComponent implements MouseMotionListener, Mo
 	private int coinNumber;
 	public static final int COIN_WIDTH = 30;
 	public static final int COIN_HEIGHT = 30;
-	private static Point coordPoint;
+	private Point coordPoint;
 	private static Point clkPoint;
 	
 	CoinComponent(int _coinNumber)
