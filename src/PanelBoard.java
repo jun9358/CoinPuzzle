@@ -1,4 +1,5 @@
 import java.awt.Dimension;
+import java.awt.Point;
 
 import javax.swing.JPanel;
 import javax.swing.event.EventListenerList;
@@ -76,6 +77,8 @@ public class PanelBoard extends JPanel implements CoinEventListener
 	@Override
 	public void coinPut(CoinEvent e)
 	{
+		Point coordPoint = new Point();
+		
 		// If source was not extended by CoinComponent, do not work.
 		if (!CoinComponent.class.equals(e.getSource().getClass()))
 		{
@@ -86,18 +89,21 @@ public class PanelBoard extends JPanel implements CoinEventListener
 		if (e.newX < 0 || PANEL_WIDTH < e.newX ||
 			e.newY < 0 || PANEL_HEIGHT < e.newY)
 		{
-			((CoinComponent)e.getSource()).putCoinAt((int)(e.oldX / CoinComponent.COIN_WIDTH),
-													 (int)(e.oldY / CoinComponent.COIN_HEIGHT));
+			coordPoint.x = (int)(e.oldX / CoinComponent.COIN_WIDTH);
+			coordPoint.y = (int)(e.oldY / CoinComponent.COIN_HEIGHT);
+			((CoinComponent)e.getSource()).putCoinAt(coordPoint.x, coordPoint.y);
 		}
 		else if (board[(int)(e.newY / CoinComponent.COIN_HEIGHT)][(int)(e.newX / CoinComponent.COIN_WIDTH)] != -1)
 		{
-			((CoinComponent)e.getSource()).putCoinAt((int)(e.oldX / CoinComponent.COIN_WIDTH),
-					 								 (int)(e.oldY / CoinComponent.COIN_HEIGHT));
+			coordPoint.x = (int)(e.oldX / CoinComponent.COIN_WIDTH);
+			coordPoint.y = (int)(e.oldY / CoinComponent.COIN_HEIGHT);
+			((CoinComponent)e.getSource()).putCoinAt(coordPoint.x, coordPoint.y);
 		}
 		else
 		{
-			((CoinComponent)e.getSource()).putCoinAt((int)(e.newX / CoinComponent.COIN_WIDTH),
-													 (int)(e.newY / CoinComponent.COIN_HEIGHT));
+			coordPoint.x = (int)(e.newX / CoinComponent.COIN_WIDTH);
+			coordPoint.y = (int)(e.newY / CoinComponent.COIN_HEIGHT);
+			((CoinComponent)e.getSource()).putCoinAt(coordPoint.x, coordPoint.y);
 		}
 	}
 	
