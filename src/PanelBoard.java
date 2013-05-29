@@ -27,6 +27,12 @@ public class PanelBoard extends JPanel implements CoinEventListener
 
 	protected EventListenerList listenerList = new EventListenerList();
 	private int board[][] = new int[BOARD_SIZE][BOARD_SIZE];
+	private int solution[][] = new int[][]
+	{
+		{1, 1, 1},
+		{1, 0, 1},
+		{1, 1, 1}
+	};
 	private CoinComponent[] coins = new CoinComponent[NUM_COIN];
 	
 	PanelBoard()
@@ -48,6 +54,38 @@ public class PanelBoard extends JPanel implements CoinEventListener
 		board = INIT_BOARD.clone();
 		
 		addCoinEventListener(this);
+	}
+	
+	public boolean isSolution()
+	{
+		for (int i=0 ; i<board.length - solution.length ; i++)
+		{
+			for (int j=0 ; j<board[0].length - solution[0].length ; j++)
+			{
+				if (isMatch(i, j))
+				{
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean isMatch(int startY, int startX)
+	{
+		for (int i=0 ; i<solution.length ; i++)
+		{
+			for (int j=0 ; j<solution[i].length ; j++)
+			{
+				if ((board[startY + i][startX + j]==-1?0:1) != solution[i][j])
+				{
+					return false;
+				}
+			}
+		}
+		
+		return true;
 	}
 	
 	public void addCoinEventListener(CoinEventListener listener)
