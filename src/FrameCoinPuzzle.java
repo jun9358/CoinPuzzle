@@ -35,8 +35,31 @@ public class FrameCoinPuzzle extends JFrame implements ActionListener
 		);
 		setLayout(null);
 		
+		// Create board data
+		int[][] initBoard = new int[][]
+		{
+			{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+			{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+			{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+			{-1, -1, -1, 00, -1, -1, 05, -1, -1, -1},
+			{-1, -1, -1, 01, 03, 04, 06, -1, -1, -1},
+			{-1, -1, -1, 02, -1, -1, 07, -1, -1, -1},
+			{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+			{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+			{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+			{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
+		};
+		
+		// Create solution data
+		int solution[][] = new int[][]
+		{
+			{1, 1, 1},
+			{1, 0, 1},
+			{1, 1, 1}
+		};
+		
 		// Create components
-		pnlBoard = new PanelBoard();
+		pnlBoard = new PanelBoard(initBoard, solution, 4);
 		pnlBoard.setBounds
 		(
 			0, 0,

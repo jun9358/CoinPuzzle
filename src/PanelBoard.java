@@ -12,36 +12,22 @@ public class PanelBoard extends JPanel implements CoinEventListener
 	private static final int PANEL_HEIGHT = 300;
 	private static final int BOARD_SIZE = 10;
 	private static final int NUM_COIN = 8;
-	private static final int[][] INIT_BOARD = new int[][]
-	{
-		{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-		{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-		{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-		{-1, -1, -1, 00, -1, -1, 05, -1, -1, -1},
-		{-1, -1, -1, 01, 03, 04, 06, -1, -1, -1},
-		{-1, -1, -1, 02, -1, -1, 07, -1, -1, -1},
-		{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-		{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-		{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-		{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
-	};
 
 	protected EventListenerList listenerList = new EventListenerList();
+	private int[][] initBoard;
 	private int board[][] = new int[BOARD_SIZE][BOARD_SIZE];
-	private int solution[][] = new int[][]
-	{
-		{1, 1, 1},
-		{1, 0, 1},
-		{1, 1, 1}
-	};
+	private int solution[][];
 	private CoinComponent[] coins = new CoinComponent[NUM_COIN];
 	private int cntMoving;
 	private int maxMoving;
 	
-	PanelBoard()
+	PanelBoard(int[][] _initBoard, int _solution[][], int _maxMoving)
 	{
+		initBoard = _initBoard;
+		solution = _solution;
+		maxMoving = _maxMoving;
+		
 		setLayout(null);
-		maxMoving = 4;
 
 		initBoard();
 		
@@ -57,15 +43,15 @@ public class PanelBoard extends JPanel implements CoinEventListener
 		{
 			for (int j=0 ; j<BOARD_SIZE ; j++)
 			{
-				if (INIT_BOARD[i][j] != -1)
+				if (initBoard[i][j] != -1)
 				{
-					coins[INIT_BOARD[i][j]] = new CoinComponent(INIT_BOARD[i][j]);
-					coins[INIT_BOARD[i][j]].putCoinAt(j, i);
-					add(coins[INIT_BOARD[i][j]]);
+					coins[initBoard[i][j]] = new CoinComponent(initBoard[i][j]);
+					coins[initBoard[i][j]].putCoinAt(j, i);
+					add(coins[initBoard[i][j]]);
 				}
 			}
 			
-			System.arraycopy(INIT_BOARD[i], 0, board[i], 0, INIT_BOARD[i].length);
+			System.arraycopy(initBoard[i], 0, board[i], 0, initBoard[i].length);
 		}
 		
 		repaint();
