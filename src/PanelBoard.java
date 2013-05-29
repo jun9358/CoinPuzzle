@@ -85,11 +85,13 @@ public class PanelBoard extends JPanel implements CoinEventListener
 		if (e.newX < 0 || PANEL_WIDTH < e.newX ||
 			e.newY < 0 || PANEL_HEIGHT < e.newY)
 		{
-			((CoinComponent)e.getSource()).putCoinAt((int)(e.oldX / 30), (int)(e.oldY / 30));
+			((CoinComponent)e.getSource()).putCoinAt((int)(e.oldX / CoinComponent.COIN_WIDTH),
+													 (int)(e.oldY / CoinComponent.COIN_HEIGHT));
 		}
 		else
 		{
-			((CoinComponent)e.getSource()).putCoinAt(e.newX / 30, e.newY / 30);
+			((CoinComponent)e.getSource()).putCoinAt((int)(e.newX / CoinComponent.COIN_WIDTH),
+													 (int)(e.newY / CoinComponent.COIN_HEIGHT));
 		}
 	}
 	
