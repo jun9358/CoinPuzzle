@@ -124,7 +124,8 @@ public class PanelBoard extends JPanel implements CoinEventListener
 			return ;
 		}
 		
-		// If new coordination is not proper position, back old position.
+		/* If new coordination is not proper position, back old position. */
+		// Check new position coin be adjacent just two coins.
 		Point dir[] = {new Point(0, -1), new Point(0, 1), new Point(-1, 0), new Point(1, 0)};
 		int cntAdjacent;
 		
@@ -151,6 +152,7 @@ public class PanelBoard extends JPanel implements CoinEventListener
 			return ;
 		}
 		
+		// Check new position coin is out of board.
 		if (e.newX < 0 || PANEL_WIDTH < e.newX ||
 			e.newY < 0 || PANEL_HEIGHT < e.newY)
 		{
@@ -158,12 +160,14 @@ public class PanelBoard extends JPanel implements CoinEventListener
 			coordPoint.y = (int)(e.oldY / CoinComponent.COIN_HEIGHT);
 			((CoinComponent)e.getSource()).putCoinAt(coordPoint.x, coordPoint.y);
 		}
+		// Check new position coin should be overlay other coin.
 		else if (board[(int)(e.newY / CoinComponent.COIN_HEIGHT)][(int)(e.newX / CoinComponent.COIN_WIDTH)] != -1)
 		{
 			coordPoint.x = (int)(e.oldX / CoinComponent.COIN_WIDTH);
 			coordPoint.y = (int)(e.oldY / CoinComponent.COIN_HEIGHT);
 			((CoinComponent)e.getSource()).putCoinAt(coordPoint.x, coordPoint.y);
 		}
+		// If all thing is good, move coin.
 		else
 		{
 			coordPoint.x = (int)(e.newX / CoinComponent.COIN_WIDTH);
@@ -177,6 +181,7 @@ public class PanelBoard extends JPanel implements CoinEventListener
 			cntMoving++;
 		}
 		
+		// If moving count done, check solution and show message. 
 		if (maxMoving <= cntMoving)
 		{
 			if (isSolution())
@@ -196,6 +201,7 @@ public class PanelBoard extends JPanel implements CoinEventListener
 			initBoard();
 		}
 		
+		// If solution is correct before moving count, show message.
 		if (cntMoving != 0 && isSolution())
 		{
 			JOptionPane.showMessageDialog(this,
