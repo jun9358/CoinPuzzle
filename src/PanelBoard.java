@@ -44,6 +44,7 @@ public class PanelBoard extends JPanel implements CoinEventListener
 				}
 			}
 		}
+		board = INIT_BOARD.clone();
 		
 		addCoinEventListener(this);
 	}
