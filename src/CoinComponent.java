@@ -30,11 +30,6 @@ public class CoinComponent extends JComponent implements MouseMotionListener, Mo
 		this.addMouseListener(this);
 	}
 	
-	public void setClickedPoint(Point _clkPoint)
-	{
-		clkPoint = _clkPoint;
-	}
-	
 	public void putCoinAt(int x, int y)
 	{
 		this.setLocation(x * COIN_WIDTH, y * COIN_HEIGHT);
