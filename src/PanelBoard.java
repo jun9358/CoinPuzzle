@@ -1,6 +1,7 @@
 import java.awt.Dimension;
 import java.awt.Point;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.EventListenerList;
 
@@ -34,11 +35,15 @@ public class PanelBoard extends JPanel implements CoinEventListener
 		{1, 1, 1}
 	};
 	private CoinComponent[] coins = new CoinComponent[NUM_COIN];
+	private int cntMoving;
+	private int maxMoving;
 	
 	PanelBoard()
 	{
 		setLayout(null);
+		maxMoving = 4;
 
+		cntMoving = 0;
 		for (int i=0 ; i<BOARD_SIZE ; i++)
 		{
 			for (int j=0 ; j<BOARD_SIZE ; j++)
@@ -146,6 +151,35 @@ public class PanelBoard extends JPanel implements CoinEventListener
 			board[coordPoint.y][coordPoint.x]
 				= board[e.oldY / CoinComponent.COIN_HEIGHT][e.oldX / CoinComponent.COIN_WIDTH];
 			board[e.oldY / CoinComponent.COIN_HEIGHT][e.oldX / CoinComponent.COIN_WIDTH] = -1;
+			
+			cntMoving++;
+		}
+		
+		if (maxMoving <= cntMoving)
+		{
+			if (isSolution())
+			{
+				JOptionPane.showMessageDialog(this,
+					"You are success to solve this quiz in " + cntMoving + " moving.",
+					"Success",
+					JOptionPane.INFORMATION_MESSAGE);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(this,
+					"Your moving count exceed max moving count(" + maxMoving + ").",
+					"Failed",
+					JOptionPane.WARNING_MESSAGE);
+			}
+		}
+		
+		if (isSolution())
+		{
+			JOptionPane.showMessageDialog(this,
+				"You are genius!!!!\n" + 
+				"You solve this quiz before max moving count(" + cntMoving + ").",
+				"GENIUS!!!",
+				JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
