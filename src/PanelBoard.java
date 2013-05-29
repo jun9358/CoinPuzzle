@@ -125,6 +125,32 @@ public class PanelBoard extends JPanel implements CoinEventListener
 		}
 		
 		// If new coordination is not proper position, back old position.
+		Point dir[] = {new Point(0, -1), new Point(0, 1), new Point(-1, 0), new Point(1, 0)};
+		int cntAdjacent;
+		
+		cntAdjacent = 0;
+		coordPoint.x = (int)(e.newX / CoinComponent.COIN_WIDTH);
+		coordPoint.y = (int)(e.newY / CoinComponent.COIN_HEIGHT);
+		for (int i=0 ; i<dir.length ; i++)
+		{
+			if ((0 < coordPoint.y + dir[i].y && coordPoint.y + dir[i].y < board.length) && 		// check out of board
+				(0 < coordPoint.x + dir[i].x && coordPoint.x + dir[i].x < board[0].length) &&	// check out of board
+				board[coordPoint.y + dir[i].y][coordPoint.x + dir[i].x] != -1 &&				// check exist coin 
+				board[coordPoint.y + dir[i].y][coordPoint.x + dir[i].x] !=						// check coin's own self
+					board[(int)(e.oldY / CoinComponent.COIN_WIDTH)][(int)(e.oldX / CoinComponent.COIN_WIDTH)])
+			{
+				cntAdjacent++;
+			}
+		}
+		if (cntAdjacent != 2)
+		{		
+			coordPoint.x = (int)(e.oldX / CoinComponent.COIN_WIDTH);
+			coordPoint.y = (int)(e.oldY / CoinComponent.COIN_HEIGHT);
+			((CoinComponent)e.getSource()).putCoinAt(coordPoint.x, coordPoint.y);
+			
+			return ;
+		}
+		
 		if (e.newX < 0 || PANEL_WIDTH < e.newX ||
 			e.newY < 0 || PANEL_HEIGHT < e.newY)
 		{
